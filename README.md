@@ -360,19 +360,19 @@ Now add another condition to your addeventListener callback function to call the
 ```javascript
 document.addEventListener("keydown", function (event) {
   if (event.key === "ArrowLeft") {
-    moveDodgerLeft(); // This should move the dodger left
+    moveDodgerLeft(); 
   }
 
   if (event.key === "ArrowRight") {
-    moveDodgerRight(); // This should move the dodger right
+    moveDodgerRight(); 
   }
 
   if (event.key === "ArrowUp") {
-    moveDodgerUp(); // This should move the dodger up
+    moveDodgerUp(); 
   }
 
   if (event.key === "ArrowDown") {
-    moveDodgerDown(); // This should move the dodger down
+    moveDodgerDown(); 
   }
 });
 
@@ -383,15 +383,11 @@ Next create a new function named `moveDodgerDown` and please ensure that your ar
 
 ```javascript
 function moveDodgerDown() {
-  const bottomNumbers = dodger.style.bottom.replace("px", ""); // Get current bottom value
-  const bottom = parseInt(bottomNumbers); // Convert it to a number
-
-  // Get the container's height (you might need to adjust this based on your container's actual height)
+  const bottomNumbers = dodger.style.bottom.replace("px", ""); 
+  const bottom = parseInt(bottomNumbers); 
   const containerHeight = parseInt(window.getComputedStyle(dodger.parentNode).height.replace("px", ""));
 
-  // Check if the bottom position is within the container's bounds
   if (bottom > 0) {
-    // Move the dodger down by 1px
     dodger.style.bottom = `${bottom - 1}px`;
   }
 }
@@ -401,15 +397,11 @@ Then you need to make an if statement inside the function named `moveDodgerDown`
 
 ```javascript
 function moveDodgerDown() {
-  const bottomNumbers = dodger.style.bottom.replace("px", ""); // Get current bottom value
-  const bottom = parseInt(bottomNumbers); // Convert it to a number
-
-  // Get the container's height (you might need to adjust this based on your container's actual height)
+  const bottomNumbers = dodger.style.bottom.replace("px", "");
+  const bottom = parseInt(bottomNumbers); 
   const containerHeight = parseInt(window.getComputedStyle(dodger.parentNode).height.replace("px", ""));
 
-  // Check if the bottom position is within the container's bounds
   if (bottom > 0) {
-    // Move the dodger down by 1px
     dodger.style.bottom = `${bottom - 1}px`;
   }
   playSoundOnMovement();
