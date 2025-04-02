@@ -220,6 +220,7 @@ function moveDodgerLeft() {
   if (left > 0) {
     dodger.style.left = `${left - 1}px`;
   }
+  playSoundOnMovement();
 }
 ```
 
@@ -252,22 +253,23 @@ With the code implemented from previuos, think about what needs to change to mak
 
 document.addEventListener("keydown", function (e) {
   if (e.key === "ArrowLeft") {
-    ...
-  }
+    moveDodgerLeft();
+    }
+  });
 
+ document.addEventListener("keydown", function (e) {
   if (e.key === "ArrowRight") {
-    // make your call to moveDodgerRight function here...
+    moveDodgerRight();
   }
-```
+});
 
 Next create a new function named `moveDodgerRight` and please ensure that your are outside the addeventListener. 
 
-```javascript
 function moveDodgerRight() {
-   let dodger = document.getElementById("dodger");
+  let dodger = document.getElementById("dodger");
   let left = parseInt(dodger.style.left, 10);
 
-  if (left < 360) { 
+  if (left < 360) {  
     dodger.style.left = `${left + 10}px`;
   }
 }
@@ -275,13 +277,18 @@ function moveDodgerRight() {
 Then you need to make an if statement inside the function named `moveDodgerRight` that ensures that the dodger's left edge has not reached the right edge of its container (Tip. use Inspect Element in Chrome to find the correct value). Finally inside the if statement, instead of moving the dodger `${left - 1}px`, you'll be moving it `${left + 1}px`.
 
 ```javascript
-function ? {
-  const leftNumbers = dodger.style.left.replace("px", ""); // unchanged
-  const left = parseInt(leftNumbers, 10); // unchanged
+function moveDodgerRight() {
+  const dodger = document.getElementById("dodger");
+  const leftNumbers = dodger.style.left.replace("px", "");
+  const left = parseInt(leftNumbers, 10);
 
-// write your if statement here...
-  
+  if (left < 360) { 
+    dodger.style.left = `${left + 1}px`;
+  }
+
+  playSoundOnMovement();
 }
+
 ```
 Now try moving the dodger to the right and see if you can go beyond the right edge of the container!
 
@@ -293,15 +300,21 @@ Now add another condition to your addeventListener callback function to call the
 
 document.addEventListener("keydown", function (e) {
   if (e.key === "ArrowLeft") {
-    ...
-  }
+     if (e.key === "ArrowLeft") {
+    moveDodgerUp();
+  }}
+  });
 
   if (e.key === "ArrowRight") {
-    ...
+     if (e.key === "ArrowRight") {
+    moveDodgerUp();
+  }
   }
 
-  if (e.key === "?") {
-    // write your code here
+  if (e.key === "keyDown") {
+     if (e.key === "ArrowUp") {
+    moveDodgerUp();
+  }
   }
 ```
 
@@ -309,9 +322,17 @@ Next implement the `moveDodgerUp()` function and please ensure that your are out
 `style.bottom` property. Here is how you should do it - replace `dodger.style.left.replace("px", "")` with `dodger.style.bottom.replace("px", "")` and store the result in a variable named `bottomNumbers`. Next, we parse `bottomNumbers` as an integer and store that result in a variable named `bottom`. If you need help checkout the function `moveDodgerRight()` or `moveDodgerLeft()`
 
 ```javascript
-function ? {
-  const ? =  // write your code here
-  const ? =  // write your code here
+function moveDodgerUp() { 
+  const bottomNumbers = dodger.style.bottom.replace("px", "");
+  const bottom = parseInt(bottomNumbers, 10);
+
+ 
+  if (bottom < 380) { 
+    dodger.style.bottom = `${bottom + 1}px`; 
+  }
+  playSoundOnMovement();
+}
+
 ```
 
 Finally you need to make an if statement inside the function named `moveDodgerUp` that ensures that the dodger's bottom position is within the acceptable range. If the bottom position is within the acceptable range: Increment the variable `bottom` position by 1 pixels. Here is how you can do it - set the `dodger-style-bottom` to move the dodger `${bottom + 1}px`.
@@ -319,10 +340,14 @@ Finally you need to make an if statement inside the function named `moveDodgerUp
 ```javascript
 function moveDodgerUp() { 
   const bottomNumbers = dodger.style.bottom.replace("px", "");
-  const bottom = parseInt(bottomNumbers);
-  if (?) {
-    ? = ? ; // Move dodger up by 1px
+  const bottom = parseInt(bottomNumbers, 10);
+
+ 
+  if (bottom < 380) { 
+    dodger.style.bottom = `${bottom + 1}px`; 
   }
+}
+
 ```
 
 Now try moving the dodger up to see if you can go beyond the top edge of the container!
@@ -333,43 +358,61 @@ Now try moving the dodger up to see if you can go beyond the top edge of the con
 Now add another condition to your addeventListener callback function to call the `moveDodgerDown()` function on the down arrow key.
 
 ```javascript
-document.addEventListener("keydown", function (e) {
-  if (e.key === "ArrowLeft") {
-    ...
+document.addEventListener("keydown", function (event) {
+  if (event.key === "ArrowLeft") {
+    moveDodgerLeft(); // This should move the dodger left
   }
 
-  if (e.key === "ArrowRight") {
-    ...
+  if (event.key === "ArrowRight") {
+    moveDodgerRight(); // This should move the dodger right
   }
 
-  if (e.key === "ArrowUp") {
-    ...
+  if (event.key === "ArrowUp") {
+    moveDodgerUp(); // This should move the dodger up
   }
 
-  if (e.key === "?") {
-    // write your code here
+  if (event.key === "ArrowDown") {
+    moveDodgerDown(); // This should move the dodger down
   }
+});
+
+
 ```
 
 Next create a new function named `moveDodgerDown` and please ensure that your are outside the addeventListener. 
 
 ```javascript
-function ? {
-  ....
+function moveDodgerDown() {
+  const bottomNumbers = dodger.style.bottom.replace("px", ""); // Get current bottom value
+  const bottom = parseInt(bottomNumbers); // Convert it to a number
+
+  // Get the container's height (you might need to adjust this based on your container's actual height)
+  const containerHeight = parseInt(window.getComputedStyle(dodger.parentNode).height.replace("px", ""));
+
+  // Check if the bottom position is within the container's bounds
+  if (bottom > 0) {
+    // Move the dodger down by 1px
+    dodger.style.bottom = `${bottom - 1}px`;
+  }
 }
 ```
 
 Then you need to make an if statement inside the function named `moveDodgerDown` that ensures that the dodger's bottom edge has not reached the bottom edge of its container (Tip. use Inspect Element in Chrome to find the correct value). Finally inside the if statement, instead of moving the dodger `${bottom + 1}px`, you'll be moving it `${bottom - 1}px`.
 
 ```javascript
-function ? {
-  const bottomNumbers = dodger.style.bottom.replace("px", ""); // unchanged
-  const bottom = parseInt(bottomNumbers); // unchanged
+function moveDodgerDown() {
+  const bottomNumbers = dodger.style.bottom.replace("px", ""); // Get current bottom value
+  const bottom = parseInt(bottomNumbers); // Convert it to a number
 
-  if (?) {
-    ? = ? ; // Move dodger down by -1px
+  // Get the container's height (you might need to adjust this based on your container's actual height)
+  const containerHeight = parseInt(window.getComputedStyle(dodger.parentNode).height.replace("px", ""));
+
+  // Check if the bottom position is within the container's bounds
+  if (bottom > 0) {
+    // Move the dodger down by 1px
+    dodger.style.bottom = `${bottom - 1}px`;
   }
-  
+  playSoundOnMovement();
 }
 ```
 Now try moving the dodger down through the container and see if you can go beyond the bottom edge of the container!
@@ -379,23 +422,23 @@ Now try moving the dodger down through the container and see if you can go beyon
 Go and update the HTML file and insert an audio-tag with an ID attribute named `movementSound` and finally ensure that you are pointing to the m4a file named `movement_sound.m4a`
 
 ```html
-<audio id="?">
-    <source src="?" type="audio/mpeg">
+<audio id="movementSound">
+    <source src="movement_sound.m4a" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 ```
 Before we can use JavaScript to play the sound named `movement_sound.m4a` on keystroke up/down/left/right, you first need to grab it and save a reference to it in a variable named `movementSound`.
 
 ```javascript
-const ? = document.getElementById("?");
+const movementSound = document.getElementById("movementSound");
 ```
 
 Next implement a function named `playSoundOnMovement` outside the addeventListener.
 
 ```javascript
-function ? {
-
-
+function playSoundOnMovement {
+    movementSound.currentTime = 0;
+    movementSound.play();
 }
 ```
 
