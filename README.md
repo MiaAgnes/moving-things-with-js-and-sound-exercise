@@ -255,7 +255,7 @@ document.addEventListener("keydown", function (e) {
     ...
   }
 
-  if (e.key === "?") {
+  if (e.key === "ArrowRight") {
     // make your call to moveDodgerRight function here...
   }
 ```
@@ -263,10 +263,14 @@ document.addEventListener("keydown", function (e) {
 Next create a new function named `moveDodgerRight` and please ensure that your are outside the addeventListener. 
 
 ```javascript
-function ? {
-  ....
+function moveDodgerRight() {
+   let dodger = document.getElementById("dodger");
+  let left = parseInt(dodger.style.left, 10);
+
+  if (left < 360) { 
+    dodger.style.left = `${left + 10}px`;
+  }
 }
-```
 
 Then you need to make an if statement inside the function named `moveDodgerRight` that ensures that the dodger's left edge has not reached the right edge of its container (Tip. use Inspect Element in Chrome to find the correct value). Finally inside the if statement, instead of moving the dodger `${left - 1}px`, you'll be moving it `${left + 1}px`.
 
